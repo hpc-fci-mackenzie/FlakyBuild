@@ -126,8 +126,8 @@ if __FILE__ == $0
   search_space = Array.new(problem_size) {[0.0, 1.0]}
 
   # algorithm configuration
-  max_detectors = 200000
-  min_dist = 2
+  max_detectors = 160000
+  min_dist = 4
   amount_of_proofs = 1
 
   # execute the algorithm
