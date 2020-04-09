@@ -1,12 +1,14 @@
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
+#include <cmath>
+#include <random>
 #include <vector>
 #include "csv.hpp"
 
 constexpr int problem_size = 20;
 double search_space[problem_size][problem_size];
 
-void init_search_spaces(void)
+void init_search_space(void)
 {
     for (int i = 0; i < problem_size; i++) {
         search_space[i][0] = 0.0;
@@ -30,12 +32,58 @@ std::vector<float *> *read_dataset(const char *filename)
     return data;
 }
 
-std::vector<float> *generate_detectors(int max_detectors, std::vector<float *> *self_dataset, int min_dist, int generation)
+std::random_device r;
+std::default_random_engine engine(r());
+std::uniform_real_distribution<float> uniform(0.0, 1.0);
+
+void random_vector(float *vector)
 {
-    return nullptr;
+    for (int i = 0; i < problem_size; i++) {
+        vector[i] = search_space[i][0] + ((search_space[i][1] - search_space[i][0]) * uniform(engine));
+    }
 }
 
-std::string apply_detectors(std::vector<float> *detectors, std::vector<float *> *self_dataset, int min_dist)
+float euclidean_distance(float *vector, float *points) {
+    double sum = 0;
+    for (int i = 0; i < problem_size; i++) {
+        double tmp = vector[i] * points[i];
+        sum += (tmp * tmp);
+    }
+    return std::sqrt(sum);
+}
+
+bool matches(float *vector, std::vector<float *> *dataset, int min_dist)
+{
+    for (auto it = dataset->cbegin(); it != dataset->cend(); it++) {
+        float dist = euclidean_distance(vector, *it);
+        if(dist <= min_dist) {
+            return true;
+        }
+    }
+    return false;
+}
+
+std::vector<float*> *generate_detectors(int max_detectors, std::vector<float *> *self_dataset, int min_dist, int generation)
+{
+    std::vector<float *> *detectors = new std::vector<float *>();
+    std::cout << "Generating detectors..." << std::endl;
+    float *detector = new float[problem_size];
+    do {
+        random_vector(detector);
+        if (!matches(detector, self_dataset, min_dist)) {
+            if (!matches(detector, detectors, 0.0)) {
+                detectors->push_back(detector);
+                detector = new float[problem_size];
+            }
+        }
+    } while (detectors->size() < max_detectors);
+    if (detector != *detectors->cend()) {
+        delete[] detector;
+    }
+    return detectors;
+}
+
+std::string apply_detectors(std::vector<float*> *detectors, std::vector<float *> *self_dataset, int min_dist)
 {
     std::string results = "";
     return results;
@@ -45,12 +93,12 @@ void run(int max_detectors, int min_dist, int amount_of_proofs)
 {
     std::string general_results = "";
 
-    init_search_spaces();
+    init_search_space();
 
     for (int proof = 0; proof < amount_of_proofs; proof++) {
-        std::vector<float*>* self_dataset_for_training = read_dataset("cortex_testing.csv");
+        std::vector<float*>* self_dataset_for_training = read_dataset("cortex_training.csv");
         std::vector<float*>* generate_self_dataset_for_testing = read_dataset("cortex_testing.csv");
-        std::vector<float> *detectors = generate_detectors(max_detectors, self_dataset_for_training, min_dist, proof + 1);
+        std::vector<float*> *detectors = generate_detectors(max_detectors, self_dataset_for_training, min_dist, proof + 1);
         general_results.append(apply_detectors(detectors, generate_self_dataset_for_testing, min_dist));
     }
 
