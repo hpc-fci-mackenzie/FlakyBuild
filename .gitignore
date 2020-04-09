@@ -1,0 +1,6 @@
+.vscode
+nsa.o
+nsa
+!nsa.*
+!data
+!data/**
