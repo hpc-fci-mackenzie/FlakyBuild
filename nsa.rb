@@ -45,7 +45,7 @@ def generate_detectors(max_detectors, search_space, self_dataset, min_dist, gene
 end
 
 def generate_self_dataset()
-  self_space_trainning = CSV.read("cortex_training.csv")
+  self_space_trainning = CSV.read("dataset_trainning.csv")
 
   self_dataset = []
 
@@ -66,7 +66,7 @@ def generate_self_dataset()
 end
 
 def generate_self_dataset_for_testing()
-  self_space_testing = CSV.read("cortex_testing.csv")
+  self_space_testing = CSV.read("dataset_testing.csv")
 
   self_dataset = []
 
@@ -97,11 +97,11 @@ def apply_detectors(detectors, self_dataset, min_dist)
     if actual != expected
       detected << trial
     end
-    
+
     trial += 1
   end
 
-  expected_detected = [122, 142, 249, 269, 409, 437, 462, 468, 510, 539, 588, 618, 678, 692, 739, 742, 795]
+  expected_detected = [11, 15, 23, 24, 25, 30, 37, 55, 72]
   # puts "Done. Result: #{detected.size}/#{trial-1}\nDetected: #{detected.to_s}\nExpected: #{expected_detected.to_s}"
   # puts "Correta: #{(((expected_detected - detected).size - expected_detected.size)*-1) / expected_detected.size.to_f} / Incorreta: #{((detected - expected_detected).size) / expected_detected.size.to_f}"
   return "#{(((expected_detected - detected).size - expected_detected.size)*-1) / expected_detected.size.to_f}, #{((detected - expected_detected).size) / expected_detected.size.to_f}\n"
@@ -122,12 +122,12 @@ end
 
 if __FILE__ == $0
   # problem configuration
-  problem_size = 20
+  problem_size = 44
   search_space = Array.new(problem_size) {[0.0, 1.0]}
 
   # algorithm configuration
-  max_detectors = 160000
-  min_dist = 4
+  max_detectors = 1000
+  min_dist = 3
   amount_of_proofs = 1
 
   # execute the algorithm

@@ -9,8 +9,8 @@
 
 typedef float datatype;
 
-constexpr int problem_size = 20;
-double search_space[problem_size][problem_size];
+constexpr int problem_size = 44;
+datatype search_space[problem_size][problem_size];
 
 void init_search_space(void)
 {
@@ -104,7 +104,7 @@ std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datat
         }
         trial++;
     }
-    int values[] = {122, 142, 249, 269, 409, 437, 462, 468, 510, 539, 588, 618, 678, 692, 739, 742, 795};
+    int values[] = {11, 15, 23, 24, 25, 30, 37, 55, 72};
 
     std::set<int> expected_detected(std::begin(values), std::end(values));
     datatype expected_detected_size = expected_detected.size();
@@ -138,8 +138,8 @@ void run(int max_detectors, datatype min_dist, int amount_of_proofs)
     init_search_space();
 
     for (int proof = 0; proof < amount_of_proofs; proof++) {
-        std::vector<datatype*>* self_dataset_for_training = read_dataset("cortex_training.csv");
-        std::vector<datatype*>* generate_self_dataset_for_testing = read_dataset("cortex_testing.csv");
+        std::vector<datatype*>* self_dataset_for_training = read_dataset("dataset_trainning.csv");
+        std::vector<datatype*>* generate_self_dataset_for_testing = read_dataset("dataset_testing.csv");
         std::vector<datatype*> *detectors = generate_detectors(max_detectors, self_dataset_for_training, min_dist, proof + 1);
         general_results.append(apply_detectors(detectors, generate_self_dataset_for_testing, min_dist));
     }
@@ -157,9 +157,9 @@ int main(int argc, char *argv[])
         min_dist = std::atoi(argv[2]);
         amount_of_proofs = std::atoi(argv[3]);
     } else if (argc == 1) {
-        max_detectors = 160000;
-        min_dist = 4;
-        amount_of_proofs = 1;
+        max_detectors = 1000;
+        min_dist = 3;
+        amount_of_proofs = 10;
     } else {
         std::cout << "Usage: " << argv[0] << " [MAX-DETECTORS] [MIN-DISTANCE] [AMOUNT-OF-POOFS]" << std::endl
                   << std::endl;
