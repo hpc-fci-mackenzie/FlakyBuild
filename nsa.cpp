@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 #include <random>
+#include <set>
+#include <string>
 #include <vector>
 #include "csv.hpp"
 
@@ -68,6 +70,7 @@ std::vector<float*> *generate_detectors(int max_detectors, std::vector<float *> 
     std::vector<float *> *detectors = new std::vector<float *>();
     std::cout << "Generating detectors..." << std::endl;
     float *detector = new float[problem_size];
+    int count = 1;
     do {
         random_vector(detector);
         if (!matches(detector, self_dataset, min_dist)) {
@@ -75,6 +78,7 @@ std::vector<float*> *generate_detectors(int max_detectors, std::vector<float *> 
                 detectors->push_back(detector);
                 detector = new float[problem_size];
             }
+            std::cout << count++ << "/" << max_detectors << std::endl;
         }
     } while (detectors->size() < max_detectors);
     if (detector != *detectors->cend()) {
@@ -85,13 +89,46 @@ std::vector<float*> *generate_detectors(int max_detectors, std::vector<float *> 
 
 std::string apply_detectors(std::vector<float*> *detectors, std::vector<float *> *self_dataset, int min_dist)
 {
-    std::string results = "";
-    return results;
+    std::set<int> *detected = new std::set<int>();
+    int trial = 1;
+    for (auto it = self_dataset->cbegin(); it != self_dataset->cend(); it++) {
+        bool actual = !matches(*it, detectors, min_dist);
+        bool expected = matches(*it, self_dataset, min_dist);
+        if (actual == expected) {
+            detected->insert(trial);
+        }
+        trial++;
+    }
+    int values[] = {122, 142, 249, 269, 409, 437, 462, 468, 510, 539, 588, 618, 678, 692, 739, 742, 795};
+
+    std::set<int> expected_detected(std::begin(values), std::end(values));
+    float expected_detected_size = expected_detected.size();
+    for (auto it = detected->cbegin(); it != detected->cend(); it++) {
+        auto found = expected_detected.find(*it);
+        if (found != expected_detected.end()) {
+            expected_detected.erase(*it);
+        }
+    }
+    float new_expected_detected_size = expected_detected.size();
+    std::string results = std::to_string(-(new_expected_detected_size - expected_detected_size) / expected_detected_size);
+
+    expected_detected.clear();
+    expected_detected.insert(std::begin(values), std::end(values));
+    for (auto it = expected_detected.cbegin(); it != expected_detected.cend(); it++) {
+        auto found = detected->find(*it);
+        if (found != detected->end()) {
+            detected->erase(*it);
+        }
+    }
+    float new_detected_size = detected->size();
+    results += ", " + std::to_string(new_detected_size / expected_detected_size);
+
+    return results + "\n";
 }
 
 void run(int max_detectors, int min_dist, int amount_of_proofs)
 {
-    std::string general_results = "";
+    std::string general_results("");
 
     init_search_space();
 
