@@ -53,13 +53,13 @@ void random_vector(datatype *vector)
 datatype euclidean_distance(datatype *vector, datatype *points) {
     double sum = 0;
     for (int i = 0; i < problem_size; i++) {
-        double tmp = vector[i] * points[i];
+        double tmp = vector[i] - points[i];
         sum += (tmp * tmp);
     }
     return std::sqrt(sum);
 }
 
-bool matches(datatype *vector, std::vector<datatype *> *dataset, int min_dist)
+bool matches(datatype *vector, std::vector<datatype *> *dataset, datatype min_dist)
 {
     for (auto it = dataset->cbegin(); it != dataset->cend(); it++) {
         datatype dist = euclidean_distance(vector, *it);
@@ -70,7 +70,7 @@ bool matches(datatype *vector, std::vector<datatype *> *dataset, int min_dist)
     return false;
 }
 
-std::vector<datatype*> *generate_detectors(int max_detectors, std::vector<datatype *> *self_dataset, int min_dist, int generation)
+std::vector<datatype*> *generate_detectors(int max_detectors, std::vector<datatype *> *self_dataset, datatype min_dist, int generation)
 {
     std::vector<datatype *> *detectors = new std::vector<datatype *>();
     std::cout << "Generating detectors..." << std::endl;
@@ -92,7 +92,7 @@ std::vector<datatype*> *generate_detectors(int max_detectors, std::vector<dataty
     return detectors;
 }
 
-std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datatype *> *self_dataset, int min_dist)
+std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datatype *> *self_dataset, datatype min_dist)
 {
     std::set<int> *detected = new std::set<int>();
     int trial = 1;
@@ -131,7 +131,7 @@ std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datat
     return results + "\n";
 }
 
-void run(int max_detectors, int min_dist, int amount_of_proofs)
+void run(int max_detectors, datatype min_dist, int amount_of_proofs)
 {
     std::string general_results("");
 
@@ -144,12 +144,13 @@ void run(int max_detectors, int min_dist, int amount_of_proofs)
         general_results.append(apply_detectors(detectors, generate_self_dataset_for_testing, min_dist));
     }
 
-    std::cout << general_results << std::endl << std::endl;
+    std::cout << general_results << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
-    int max_detectors, min_dist, amount_of_proofs;
+    int max_detectors, amount_of_proofs;
+    datatype min_dist;
 
     if (argc == 4) {
         max_detectors = std::atoi(argv[1]);
