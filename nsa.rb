@@ -1,8 +1,32 @@
 require 'csv'
 
+##################################################################
+# pRNG based on http://www.cs.wm.edu/~va/software/park/park.html
+##################################################################
+
+$MODULUS    = 2147483647
+$MULTIPLIER = 48271
+$DEFAULT    = 123456789
+
+$seed = $DEFAULT
+
+def Random()
+  $Q = $MODULUS / $MULTIPLIER
+  $R = $MODULUS % $MULTIPLIER
+
+  t = $MULTIPLIER * ($seed % $Q) - $R * ($seed / $Q)
+  if t > 0
+    $seed = t
+  else
+    $seed = t + $MODULUS
+  end
+  return ($seed * 1.0) / ($MODULUS * 1.0)
+end
+
 def random_vector(minmax)
   return Array.new(minmax.length) do |i|
-    minmax[i][0] + ((minmax[i][1] - minmax[i][0]) * rand())
+    # minmax[i][0] + ((minmax[i][1] - minmax[i][0]) * rand())
+    minmax[i][0] + ((minmax[i][1] - minmax[i][0]) * Random())
   end
 end
 

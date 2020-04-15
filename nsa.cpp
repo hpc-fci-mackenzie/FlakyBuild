@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
-#include <random>
 #include <set>
 #include <string>
 #include <vector>
@@ -39,14 +38,35 @@ std::vector<datatype *> *read_dataset(const char *filename)
     return data;
 }
 
-std::random_device r;
-std::default_random_engine engine(r());
-std::uniform_real_distribution<datatype> uniform(0.0, 1.0);
+#define MODULUS    2147483647
+#define MULTIPLIER 48271
+#define DEFAULT    123456789
+
+static long seed = DEFAULT;
+
+double Random(void)
+/* ----------------------------------------------------------------
+ * Random returns a pseudo-random real number uniformly distributed
+ * between 0.0 and 1.0.
+ * ----------------------------------------------------------------
+ */
+{
+  const long Q = MODULUS / MULTIPLIER;
+  const long R = MODULUS % MULTIPLIER;
+        long t;
+
+  t = MULTIPLIER * (seed % Q) - R * (seed / Q);
+  if (t > 0)
+    seed = t;
+  else
+    seed = t + MODULUS;
+  return ((double) seed / MODULUS);
+}
 
 void random_vector(datatype *vector)
 {
     for (int i = 0; i < problem_size; i++) {
-        vector[i] = search_space[i][0] + ((search_space[i][1] - search_space[i][0]) * uniform(engine));
+        vector[i] = search_space[i][0] + ((search_space[i][1] - search_space[i][0]) * Random());
     }
 }
 
@@ -159,7 +179,7 @@ int main(int argc, char *argv[])
     } else if (argc == 1) {
         max_detectors = 1000;
         min_dist = 3;
-        amount_of_proofs = 10;
+        amount_of_proofs = 1;
     } else {
         std::cout << "Usage: " << argv[0] << " [MAX-DETECTORS] [MIN-DISTANCE] [AMOUNT-OF-POOFS]" << std::endl
                   << std::endl;
