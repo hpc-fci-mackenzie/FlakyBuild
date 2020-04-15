@@ -117,7 +117,7 @@ std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datat
     std::set<int> *detected = new std::set<int>();
     int trial = 1;
     for (auto it = self_dataset->cbegin(); it != self_dataset->cend(); it++) {
-        bool actual = !matches(*it, detectors, min_dist);
+        bool actual = matches(*it, detectors, min_dist);
         bool expected = matches(*it, self_dataset, min_dist);
         if (actual == expected) {
             detected->insert(trial);
