@@ -149,7 +149,11 @@ std::vector<datatype*> *generate_detectors(std::vector<datatype *> *self_dataset
     return detectors;
 }
 
-std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datatype *> *self_dataset)
+typedef struct {
+    datatype DR, FAR;
+} result;
+
+result apply_detectors(std::vector<datatype*> *detectors, std::vector<datatype *> *self_dataset)
 {
     std::set<int> *detected = new std::set<int>();
     int trial = 1;
@@ -170,7 +174,9 @@ std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datat
         }
     }
     datatype new_expected_detected_size = expected_detected.size();
-    std::string results = std::to_string(-(new_expected_detected_size - expected_detected_size) / expected_detected_size);
+
+    result result;
+    result.DR = (-(new_expected_detected_size - expected_detected_size) / expected_detected_size);
 
     expected_detected.clear();
     expected_detected.insert(config.expected_detected.begin(), config.expected_detected.end());
@@ -181,14 +187,14 @@ std::string apply_detectors(std::vector<datatype*> *detectors, std::vector<datat
         }
     }
     datatype new_detected_size = detected->size();
-    results += ", " + std::to_string(new_detected_size / expected_detected_size);
+    result.FAR = (new_detected_size / expected_detected_size);
 
-    return results + "\n";
+    return result;
 }
 
 void run()
 {
-    std::string general_results("");
+    std::vector<result> general_results;
 
     init_search_space();
 
@@ -197,13 +203,20 @@ void run()
 
     for (int proof = 0; proof < config.amount_of_proofs; proof++) {
         std::vector<datatype*> *detectors = generate_detectors(self_dataset_for_training, proof + 1);
-        general_results.append(apply_detectors(detectors, generate_self_dataset_for_testing));
+        general_results.push_back(apply_detectors(detectors, generate_self_dataset_for_testing));
     }
 
     std::cout << "Detectors: " << config.max_detectors << std::endl;
     std::cout << "Min. distance: " << config.min_dist << std::endl;
     std::cout << "Runs: " << config.amount_of_proofs << std::endl;
-    std::cout << general_results << std::endl;
+    datatype sum_DR = 0;
+    datatype sum_FAR = 0;
+    for(result &r : general_results) {
+        std::cout << r.DR << ", " << r.FAR << std::endl;
+        sum_DR += r.DR;
+        sum_FAR += r.FAR;
+    }
+    std::cout << "Average: " << sum_DR/config.amount_of_proofs << ", " << sum_FAR/config.amount_of_proofs << std::endl;
 }
 
 int main(int argc, char *argv[])
