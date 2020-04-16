@@ -38,6 +38,10 @@ std::vector<datatype *> *read_dataset(const char *filename)
     return data;
 }
 
+/****
+/* pRNG based on http://www.cs.wm.edu/~va/software/park/park.html
+*****/
+
 #define MODULUS    2147483647
 #define MULTIPLIER 48271
 #define DEFAULT    123456789
