@@ -6,7 +6,7 @@
 #include <vector>
 #include "csv.hpp"
 
-typedef float datatype;
+typedef double datatype;
 
 constexpr int problem_size = 44;
 datatype search_space[problem_size][problem_size];
@@ -164,6 +164,9 @@ void run(int max_detectors, datatype min_dist, int amount_of_proofs)
         general_results.append(apply_detectors(detectors, generate_self_dataset_for_testing, min_dist));
     }
 
+    std::cout << "Detectors: " << max_detectors << std::endl;
+    std::cout << "Min. distance: " << min_dist << std::endl;
+    std::cout << "Runs: " << amount_of_proofs << std::endl;
     std::cout << general_results << std::endl;
 }
 
@@ -174,7 +177,7 @@ int main(int argc, char *argv[])
 
     if (argc == 4) {
         max_detectors = std::atoi(argv[1]);
-        min_dist = std::atoi(argv[2]);
+        min_dist = std::atof(argv[2]);
         amount_of_proofs = std::atoi(argv[3]);
     } else if (argc == 1) {
         max_detectors = 1000;
