@@ -152,20 +152,22 @@ std::vector<datatype*> *generate_detectors(std::vector<datatype *> *self_dataset
     std::vector<datatype *> *detectors = new std::vector<datatype *>();
     std::cout << "Generating detectors..." << std::endl;
     datatype *detector = new datatype[config.problem_size];
-    int count = 1;
+
     do {
         random_vector(detector);
         if (!matches(detector, self_dataset, config.min_dist)) {
             if (!matches(detector, detectors, 0.0)) {
                 detectors->push_back(detector);
                 detector = new datatype[config.problem_size];
+                std::cout << detectors->size() << "/" << config.max_detectors << std::endl;
             }
-            std::cout << count++ << "/" << config.max_detectors << std::endl;
         }
     } while (detectors->size() < config.max_detectors);
+
     if (detector != *detectors->cend()) {
         delete[] detector;
     }
+
     return detectors;
 }
 
@@ -220,7 +222,7 @@ void run()
 
     std::vector<datatype*>* self_dataset_for_training = read_dataset(config.trainning_dataset_csv_file);
     std::vector<datatype*>* generate_self_dataset_for_testing = read_dataset(config.testing_dataset_csv_file);
-
+    
     for (int proof = 0; proof < config.amount_of_proofs; proof++) {
         std::vector<datatype*> *detectors = generate_detectors(self_dataset_for_training, proof + 1);
         general_results.push_back(apply_detectors(detectors, generate_self_dataset_for_testing));
