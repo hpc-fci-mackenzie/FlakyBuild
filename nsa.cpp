@@ -1,6 +1,9 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#ifndef DEBUG
+#include <random>
+#endif
 #include <set>
 #include <string>
 #include <vector>
@@ -70,8 +73,13 @@ std::vector<datatype *> *read_dataset(const char *filename)
     return data;
 }
 
+
+#ifdef DEBUG
+
+#pragma message ("Using a custom pRNG...")
+
 /****
-/* pRNG based on http://www.cs.wm.edu/~va/software/park/park.html
+* pRNG based on http://www.cs.wm.edu/~va/software/park/park.html
 *****/
 
 #define MODULUS    2147483647
@@ -100,10 +108,22 @@ double Random(void)
     return ((double) seed / MODULUS);
 }
 
+#else
+
+std::random_device r;
+std::default_random_engine engine(r());
+std::uniform_real_distribution<datatype> uniform(0.0, 1.0);
+
+#endif
+
 void random_vector(datatype *vector)
 {
     for (int i = 0; i < config.problem_size; i++) {
+#ifdef DEBUG
         vector[i] = config.search_space[2 * i] + ((config.search_space[2 * i + 1] - config.search_space[2 * i]) * Random());
+#else
+        vector[i] = config.search_space[2 * i] + ((config.search_space[2 * i + 1] - config.search_space[2 * i]) * uniform(engine));
+#endif
     }
 }
 

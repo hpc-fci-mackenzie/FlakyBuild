@@ -1,7 +1,8 @@
 .vscode
 .DS_Store
-nsa.o
 nsa
 !nsa.*
+nsa.o
+nsa.exe
 !data
 !data/**
