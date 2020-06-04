@@ -187,6 +187,21 @@ result apply_detectors(std::vector<datatype*> *detectors, std::vector<datatype *
         }
         trial++;
     }
+
+    std::cout << "Expected to be detected: ";
+    for (auto it = config.expected_detected.cbegin(); it != config.expected_detected.cend();) {
+      std::cout << *it;
+      if (++it != config.expected_detected.cend()) std::cout << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Found: ";
+    for (auto it = detected->cbegin(); it != detected->cend();) {
+      std::cout << *it;
+      if (++it != detected->cend()) std::cout << ", ";
+    }
+    std::cout << std::endl;
+
     std::set<int> expected_detected(config.expected_detected.begin(), config.expected_detected.end());
     datatype expected_detected_size = expected_detected.size();
     for (auto it = detected->cbegin(); it != detected->cend(); it++) {
@@ -222,7 +237,7 @@ void run()
 
     std::vector<datatype*>* self_dataset_for_training = read_dataset(config.trainning_dataset_csv_file);
     std::vector<datatype*>* generate_self_dataset_for_testing = read_dataset(config.testing_dataset_csv_file);
-    
+
     for (int proof = 0; proof < config.amount_of_proofs; proof++) {
         std::vector<datatype*> *detectors = generate_detectors(self_dataset_for_training, proof + 1);
         general_results.push_back(apply_detectors(detectors, generate_self_dataset_for_testing));
