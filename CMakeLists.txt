@@ -4,7 +4,8 @@ project(nsa)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
 add_executable(nsa nsa.cpp)
