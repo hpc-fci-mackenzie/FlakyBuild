@@ -34,7 +34,7 @@ Feito uma dessas duas operações, o próximo passo agora é gerar os binários:
 $ make
 ```
 
-Para executar o programa basta inserir o comando
+Para executar o programa basta inserir o comando:
 
 ```bash
 $ ./nsa ../data/ArquivoDeConfiguracaoDesejado
