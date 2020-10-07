@@ -2,7 +2,7 @@ name: CMake Release
 
 on:
   push:
-    branches: [ Issue#3 ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
