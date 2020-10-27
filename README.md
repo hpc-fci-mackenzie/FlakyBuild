@@ -41,3 +41,14 @@ Exemplo:
 $ ./nsa ../data/dataset.conf
 
 ```
+
+## Licença e Citação
+
+@INPROCEEDINGS{9073958,
+author={J. C. {de Lima Costa} and L. N. {de Castro} and C. {de Paula Bianchini}},
+booktitle={2019 XLV Latin American Computing Conference (CLEI)},
+title={Sensitivity Analysis of the Negative Selection Algorithm Applied to Anomalies Identification in Builds},
+year={2019},
+volume={},
+number={},
+pages={1-6},}
