@@ -51,4 +51,5 @@ title={Sensitivity Analysis of the Negative Selection Algorithm Applied to Anoma
 year={2019},
 volume={},
 number={},
-pages={1-6},}
+pages={1-6},
+}
