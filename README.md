@@ -44,6 +44,7 @@ $ ./nsa ../data/dataset.conf
 
 ## Licença e Citação
 
+```
 @INPROCEEDINGS{9073958,<br>
 author={J. C. {de Lima Costa} and L. N. {de Castro} and C. {de Paula Bianchini}},<br>
 booktitle={2019 XLV Latin American Computing Conference (CLEI)},<br>
@@ -53,3 +54,4 @@ volume={},<br>
 number={},<br>
 pages={1-6},<br>
 }
+```
