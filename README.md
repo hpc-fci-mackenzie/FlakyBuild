@@ -43,15 +43,18 @@ $ ./nsa ../data/dataset.conf
 ```
 
 ## Licença e Citação
+```
+J. C. de Lima Costa, L. N. de Castro and C. de Paula Bianchini, "Sensitivity Analysis of the Negative Selection Algorithm Applied to Anomalies Identification in Builds," 2019 XLV Latin American Computing Conference (CLEI), Panama, Panama, 2019, pp. 1-6, doi: 10.1109/CLEI47609.2019.235087.
+```
 
 ```
-@INPROCEEDINGS{9073958,<br>
-author={J. C. {de Lima Costa} and L. N. {de Castro} and C. {de Paula Bianchini}},<br>
-booktitle={2019 XLV Latin American Computing Conference (CLEI)},<br>
-title={Sensitivity Analysis of the Negative Selection Algorithm Applied to Anomalies Identification in Builds},<br>
-year={2019},<br>
-volume={},<br>
-number={},<br>
-pages={1-6},<br>
+@INPROCEEDINGS{9073958,
+author={J. C. {de Lima Costa} and L. N. {de Castro} and C. {de Paula Bianchini}},
+booktitle={2019 XLV Latin American Computing Conference (CLEI)},
+title={Sensitivity Analysis of the Negative Selection Algorithm Applied to Anomalies Identification in Builds},
+year={2019},
+volume={},
+number={},
+pages={1-6},
 }
 ```
