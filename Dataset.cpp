@@ -3,9 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <set>
-#include <vector>
 #include "csv.hpp"
-#include "Datatype.hpp"
 
 Dataset::Dataset(std::string filename, int problemSize)
 {

@@ -1,11 +1,10 @@
 #ifndef DETECTOR_HPP
 #define DETECTOR_HPP
 #include <vector>
-#include "Datatype.hpp"
-#include "Dataset.hpp"
-#include "Result.hpp"
 #include "ConfigFile.hpp"
+#include "Datatype.hpp"
 #include "Geometry.hpp"
+#include "Result.hpp"
 
 class Detector
 {

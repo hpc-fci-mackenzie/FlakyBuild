@@ -4,7 +4,6 @@
 #include <cmath>
 #include <set>
 #include <string>
-#include <vector>
 #include "ConfigFile.hpp"
 
 void Geometry::setProblemSize(int problemSize){

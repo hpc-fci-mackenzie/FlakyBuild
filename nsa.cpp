@@ -1,15 +1,17 @@
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
-#include <cmath>
 #include <set>
 #include <string>
 #include <vector>
 #include "csv.hpp"
-#include "Dataset.hpp"
-#include "Detector.hpp"
-#include "Datatype.hpp"
-#include "Result.hpp"
 #include "ConfigFile.hpp"
+#include "Dataset.hpp"
+#include "Datatype.hpp"
+#include "Detector.hpp"
+#include "Result.hpp"
+
+
 
 void initSearchSpace(ConfigFile &configFile)
 {

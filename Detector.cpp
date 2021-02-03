@@ -1,12 +1,10 @@
 #include "Detector.hpp"
 #include <cstdlib>
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include <set>
 #include <string>
 #include "Debug.hpp"
-#include "Datatype.hpp"
-#include "Geometry.hpp"
 
 Detector::Detector(ConfigFile configFile, std::vector<datatype *> *selfDataset)
 {
