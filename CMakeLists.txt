@@ -27,6 +27,6 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
-add_executable(nsa nsa.cpp)
+add_executable(nsa nsa.cpp ConfigFile.cpp Dataset.cpp Detector.cpp Geometry.cpp)
 
 target_link_libraries (nsa ${CMAKE_THREAD_LIBS_INIT})
