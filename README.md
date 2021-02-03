@@ -15,7 +15,7 @@ $ cmake ..
 ```
 * Para deixar o script de configuração decidir o melhor ambiente para você:
 ```
-$ cmake .. -DORIGINAL=OFF
+$ cmake -DCMAKE_BUILD_TYPE=Debug ..
 ```
 Feito uma dessas duas operações, o próximo passo agora é gerar os binários:
 ```
@@ -25,8 +25,7 @@ Pronto. Agora os binários devem estar gerados nas pastas especificadas pelo ```
 
 Para executar, dado o setup exemplificado, basta inserir algum desses comandos, em qualquer ordem:
 ```
-$ ./A/barra < ../A/in.1
-$ ./B/soma < ../B/in.1
+$ ./nsa ../data/dataset.conf
 ```
 
 # Citação
@@ -45,3 +44,4 @@ volume={},
 number={},
 pages={1-6},}
 ```
+https://doi.org/10.1109/CLEI47609.2019.235087
