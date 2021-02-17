@@ -1,8 +1,11 @@
 .vscode
 .DS_Store
 nsa
+nsa-*
 !nsa.*
 nsa.o
 nsa.exe
 !data
 !data/**
+build
+swp
