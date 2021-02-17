@@ -65,18 +65,7 @@ std::vector<datatype *> *Detector::generateDetectors()
     } while (size < fConfigFile.getMaxDetectors());
 }
 
-    std::vector<datatype *> *tmp = detectors;
-    detectors = new std::vector<datatype*>();
-    while (tmp->size() > 0 && detectors->size() < fConfigFile.getMaxDetectors()) {
-        datatype *detector = tmp->back();
-        tmp->pop_back();
-        if (!geometry.matches(detector, fSelfDataset, fConfigFile.getMinDist())) {
-            if (!geometry.matches(detector, detectors, 0.0)) {
-                detectors->push_back(detector);
-            }
-        }
-    }
-
+    detectors->resize(fConfigFile.getMaxDetectors());
     return detectors;
 }
 result Detector::applyDetectors(std::vector<datatype *> *detectors)
