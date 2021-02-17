@@ -30,24 +30,51 @@ std::vector<datatype *> *Detector::generateDetectors()
 {
     std::vector<datatype *> *detectors = new std::vector<datatype *>();
     std::cout << "Generating detectors..." << std::endl;
-    datatype *detector = new datatype[fConfigFile.getProblemSize()];
+    size_t size = 0;
+#pragma omp parallel
+{
     do
     {
+        bool found = false;
+        datatype *detector = new datatype[fConfigFile.getProblemSize()];
         randomVector(detector);
         if (!geometry.matches(detector, fSelfDataset, fConfigFile.getMinDist()))
         {
-            if (!geometry.matches(detector, detectors, 0.0))
+            std::vector<datatype *> *copy;
+#pragma omp critical
+{
+            copy = new std::vector<datatype*>(detectors->begin(),detectors->end());
+}
+            if (!geometry.matches(detector, copy, 0.0))
             {
+#pragma omp critical
+{
                 detectors->push_back(detector);
-                detector = new datatype[fConfigFile.getProblemSize()];
+}
+                found = true;
                 std::cout << detectors->size() << "/" << fConfigFile.getMaxDetectors() << std::endl;
             }
         }
-    } while (detectors->size() < fConfigFile.getMaxDetectors());
+        if(!found) {
+            delete[] detector;
+        }
+#pragma omp critical
+{
+        size = detectors->size();
+}
+    } while (size < fConfigFile.getMaxDetectors());
+}
 
-    if (detector != *detectors->cend())
-    {
-        delete[] detector;
+    std::vector<datatype *> *tmp = detectors;
+    detectors = new std::vector<datatype*>();
+    while (tmp->size() > 0 && detectors->size() < fConfigFile.getMaxDetectors()) {
+        datatype *detector = tmp->back();
+        tmp->pop_back();
+        if (!geometry.matches(detector, fSelfDataset, fConfigFile.getMinDist())) {
+            if (!geometry.matches(detector, detectors, 0.0)) {
+                detectors->push_back(detector);
+            }
+        }
     }
 
     return detectors;
