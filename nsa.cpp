@@ -33,13 +33,14 @@ void run(ConfigFile &configFile)
     std::vector<datatype *> *generateSelfDatasetForTesting = testingDataset.readDataset();
     Detector trainingDetectors(configFile, selfDatasetForTraining);
     Detector testingDetectors(configFile, generateSelfDatasetForTesting);
+    std::vector<datatype *> *detectors;
     for (int proof = 0; proof < configFile.getAmountOfProofs(); proof++)
     {
-        std::vector<datatype *> *detectors = trainingDetectors.generateDetectors();
+        detectors = trainingDetectors.generateDetectors();
         generalResults.push_back(testingDetectors.applyDetectors(detectors));
     }
     
-    std::cout << "Detectors: " << configFile.getMaxDetectors() << std::endl;
+    std::cout << "Detectors: " << configFile.getMaxDetectors() << "/" << detectors->size() << std::endl;
     std::cout << "Min. distance: " << configFile.getMinDist() << std::endl;
     std::cout << "Runs: " << configFile.getAmountOfProofs() << std::endl;
     datatype sumDR = 0;
