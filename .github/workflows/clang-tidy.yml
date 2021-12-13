@@ -1,7 +1,9 @@
 name: clang-tidy
 
 on:
-  [push, pull_request]:
+  pull_request:
+    branches: '**'
+  push:
     branches: '**'
 
 env:
@@ -17,7 +19,7 @@ jobs:
     - name: Create ./build path
       shell: bash
       working-directory: ${{runner.workspace}}
-      run: mkdir $BUILD && cd $BUILD
+      run: mkdir $BUILD
 
     - name: Execute CMAKE
       shell: bash
@@ -27,4 +29,4 @@ jobs:
     - name: Execute clang-tidy
       shell: bash
       working-directory: ${{runner.workspace}}/$BUILD
-      run: cd .. && lang-tidy -p=./$BUILD/ -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" nsa.cpp
+      run: cd .. && clang-tidy -p=./$BUILD/ -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" nsa.cpp

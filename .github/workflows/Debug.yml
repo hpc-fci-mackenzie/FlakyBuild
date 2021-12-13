@@ -1,7 +1,9 @@
 name: CMake Debug
 
 on:
-  [push, pull_request]:
+  pull_request:
+    branches: '**'
+  push:
     branches: '**'
 
 env:
