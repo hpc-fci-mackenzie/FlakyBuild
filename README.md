@@ -17,7 +17,7 @@ $ cmake ..
 ```
 $ cmake -DCMAKE_BUILD_TYPE=Debug ..
 ```
-With onne of these two operations done, the next step now is to generate the binaries:
+With one of these two operations done, the next step now is to generate the binaries:
 ```
 $ make
 ```
@@ -28,8 +28,8 @@ To run, given this example setup, just insert any of these commands, in any orde
 $ ./nsa ../data/dataset.conf
 ```
 
-# Citação
-Para citar o projeto, utilize uma das formas abaixo:
+# Citation
+To quote the project, use one of the ways below:
 ```
 J. C. de Lima Costa, L. N. de Castro and C. de Paula Bianchini, "Sensitivity Analysis of the Negative Selection Algorithm Applied to Anomalies Identification in Builds," 2019 XLV Latin American Computing Conference (CLEI), Panama, Panama, 2019, pp. 1-6, doi: 10.1109/CLEI47609.2019.235087.
 ```
