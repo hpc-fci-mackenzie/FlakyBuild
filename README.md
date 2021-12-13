@@ -23,9 +23,9 @@ $ make
 ```
 Done. Binaries should now be generated in the folders specified by ```Makefile```
 
-To run, given this example setup, just insert any of these commands, in any order:
+To run, given this example setup, just insert any of these commands in the data folder, in any order:
 ```
-$ ./nsa ../data/dataset.conf
+$ ../build/nsa dataset.conf
 ```
 
 # Citation
