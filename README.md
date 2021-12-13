@@ -25,8 +25,9 @@ Done. Binaries should now be generated in the folders specified by ```Makefile``
 
 To run, given this example setup, just insert any of these commands in the data folder, in any order:
 ```
-$ ../build/nsa dataset.conf
+$ OMP_PROC_BIND=true OMP_NUM_THREADS=1 ../build/nsa dataset.conf
 ```
+To get better results, run OMP_NUM_THREADS with more threads.
 
 # Citation
 To quote the project, use one of the ways below:
