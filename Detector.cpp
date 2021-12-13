@@ -54,6 +54,7 @@ std::vector<datatype *> *Detector::generateDetectors()
                 found = true;
                 std::cout << detectors->size() << "/" << fConfigFile.getMaxDetectors() << std::endl;
             }
+            delete copy;
         }
         if(!found) {
             delete[] detector;
@@ -130,5 +131,6 @@ result Detector::applyDetectors(std::vector<datatype *> *detectors)
     datatype newDetectedSize = detected->size();
     result.FAR = (newDetectedSize / expectedDetectedSize);
 
+    delete detected;
     return result;
 }
