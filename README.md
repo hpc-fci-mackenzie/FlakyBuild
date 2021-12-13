@@ -1,36 +1,35 @@
 # FlaskBuild
-* This solution uses the Negative Selection Algorithm to find Flask Builds.
-* This project uses CMake for its configuration.
+* Este projeto utiliza o Algoritmo de Seleção Negativa (ASN) para encontrar Flask Bulds.
+* Este projeto utiliza CMake para sua configuração.
 
-# Instructions
-It is recommended to create a specific directory for your build.
+# Instruções
+É recomendável criar um diretório específico para seu build.
 ```
 $ mkdir build
 $ cd build
 ```
-Once there, you must execute one of these two commands:
-* To set up a build environment for ```Intel``` compiler:
+Estando nele, você deve executar um desses dois comandos:
+* Para configurar um ambiente de compilação para o compilador da ```Intel```:
 ```
 $ cmake ..
 ```
-* To let the setup script decide the best environment for you:
+* Para deixar o script de configuração decidir o melhor ambiente para você:
 ```
-$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+$ cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ```
-With one of these two operations done, the next step now is to generate the binaries:
+Feito uma dessas duas operações, o próximo passo agora é gerar os binários:
 ```
 $ make
 ```
-Done. Binaries should now be generated in the folders specified by ```Makefile```
+Pronto. Agora os binários devem estar gerados nas pastas especificadas pelo ```Makefile```
 
-To run, given this example setup, just insert any of these commands in the data folder, in any order:
+Para executar, dado o setup exemplificado, basta inserir algum desses comandos, em qualquer ordem:
 ```
-$ OMP_PROC_BIND=true OMP_NUM_THREADS=1 ../build/nsa dataset.conf
+$ ./nsa ../data/dataset.conf
 ```
-To get better results, run OMP_NUM_THREADS with more threads.
 
-# Citation
-To quote the project, use one of the ways below:
+# Citação
+Para citar o projeto, utilize uma das formas abaixo:
 ```
 J. C. de Lima Costa, L. N. de Castro and C. de Paula Bianchini, "Sensitivity Analysis of the Negative Selection Algorithm Applied to Anomalies Identification in Builds," 2019 XLV Latin American Computing Conference (CLEI), Panama, Panama, 2019, pp. 1-6, doi: 10.1109/CLEI47609.2019.235087.
 ```
