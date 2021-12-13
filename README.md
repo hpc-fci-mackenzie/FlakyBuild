@@ -15,7 +15,7 @@ $ cmake ..
 ```
 * To let the setup script decide the best environment for you:
 ```
-$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+$ cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ```
 With one of these two operations done, the next step now is to generate the binaries:
 ```
