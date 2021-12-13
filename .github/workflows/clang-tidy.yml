@@ -1,8 +1,8 @@
 name: clang-tidy
 
 on:
-  pull_request:
-    branches: [master]
+  [push, pull_request]:
+    branches: '**'
 
 env:
   BUILD: build
