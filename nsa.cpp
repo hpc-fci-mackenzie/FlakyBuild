@@ -52,7 +52,11 @@ void run(ConfigFile &configFile)
         sumFAR += r.FAR;
     }
     std::cout << "Average: " << sumDR / configFile.getAmountOfProofs() << ", " << sumFAR / configFile.getAmountOfProofs() << std::endl;
-}
+    
+    delete selfDatasetForTraining;
+    delete generateSelfDatasetForTesting;
+    delete detectors;
+    }
 
 int main(int argc, char *argv[])
 {
