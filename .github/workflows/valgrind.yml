@@ -50,4 +50,4 @@ jobs:
       - name: Execute valgrind
         shell: bash
         working-directory: ${{runner.workspace}}/data
-        run: valgrind --quiet --leak-check=full ../build/nsa dataset.conf
+        run: pwd
