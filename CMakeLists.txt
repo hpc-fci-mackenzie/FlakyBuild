@@ -28,6 +28,6 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
 find_package(OpenMP REQUIRED)
-add_executable(nsa nsa.cpp ConfigFile.cpp Dataset.cpp Detector.cpp Geometry.cpp)
+add_executable(nsa src/nsa.cpp src/ConfigFile.cpp src/Dataset.cpp src/Detector.cpp src/Geometry.cpp)
 target_compile_options(nsa PUBLIC -Wall ${OpenMP_CXX_FLAGS})
 target_link_libraries(nsa ${OpenMP_CXX_FLAGS})
