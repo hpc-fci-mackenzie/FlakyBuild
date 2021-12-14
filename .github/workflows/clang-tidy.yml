@@ -13,15 +13,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: test
+      run: echo $GITHUB_WORKSPACE
+
     - name: Create Build Environment
-      run: cmake -E make_directory ${{runner.workspace}}/build
+      run: cmake -E make_directory $GITHUB_WORKSPACE/build
 
     - name: Execute CMAKE
       shell: bash
-      working-directory: ${{runner.workspace}}/build
+      working-directory: $GITHUB_WORKSPACE/build
       run: cmake ../ -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
     - name: Execute clang-tidy
       shell: bash
-      working-directory: ${{runner.workspace}}/build
-      run: cd .. && clang-tidy -p=./$BUILD/ -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" nsa.cpp
+      working-directory: $GITHUB_WORKSPACE
+      run: clang-tidy -p=./$BUILD/ -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" nsa.cpp
