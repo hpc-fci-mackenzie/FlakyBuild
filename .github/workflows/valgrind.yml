@@ -36,4 +36,4 @@ jobs:
       - name: Execute Valgrind
         shell: bash
         working-directory: ${{runner.workspace}}/FlakyBuild/data
-        run: valgrind --quiet --leak-check=full ../build/nsa dataset.conf
+        run: valgrind --quiet ../build/nsa dataset.conf
