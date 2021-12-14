@@ -14,15 +14,13 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      working-directory: $GITHUB_WORKSPACE
       run: mkdir build && ls
 
     - name: Execute CMAKE
       shell: bash
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: ./build
       run: cmake $GITHUB_WORKSPACE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
     - name: Execute clang-tidy
       shell: bash
-      working-directory: $GITHUB_WORKSPACE
       run: clang-tidy -p=./$BUILD/ -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" nsa.cpp
