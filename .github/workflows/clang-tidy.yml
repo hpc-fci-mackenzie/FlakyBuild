@@ -21,9 +21,9 @@ jobs:
       working-directory: ./build
       run: cmake $GITHUB_WORKSPACE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-    - name: Install clang-tidy
+    - name: Update and Install clang-tidy
       shell: bash
-      run: sudo apt install -y clang-tidy
+      run: sudo apt update -y && sudo apt install -y clang-tidy
       
     - name: Execute clang-tidy
       shell: bash
