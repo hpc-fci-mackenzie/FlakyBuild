@@ -27,4 +27,4 @@ jobs:
       
     - name: Execute clang-tidy
       shell: bash
-      run: clang-tidy -p=./$BUILD/ -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" nsa.cpp
+      run: clang-tidy -p=./build -warnings-as-errors="*" -checks="-*,clang-analyzer-*,bugprone-*,hicpp-*,modernize-*,openmp-*" ./src/nsa.cpp
