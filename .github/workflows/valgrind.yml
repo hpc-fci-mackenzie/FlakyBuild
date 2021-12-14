@@ -21,7 +21,7 @@ jobs:
         run: sudo apt update -y && sudo apt -y install valgrind
 
       - name: Create Build Environment
-        run: mkdir build
+        run: cmake -E make_directory $GITHUB_WORKSPACE/build
 
       - name: Configure CMake
         shell: bash
