@@ -13,11 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: test
-      run: echo $GITHUB_WORKSPACE
-
     - name: Create Build Environment
       run: cmake -E make_directory $GITHUB_WORKSPACE/build
+
+    - name: test
+      working-directory: $GITHUB_WORKSPACE/build
+      run: pwd $$ ls 
 
     - name: Execute CMAKE
       shell: bash
