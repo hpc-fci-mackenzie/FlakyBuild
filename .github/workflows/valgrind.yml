@@ -16,6 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install dependecy
+        shell: bash
+        run: sudo apt update -y && sudo apt -y install valgrind
+
       - name: Create Build Environment
         run: mkdir build
 
@@ -28,10 +32,6 @@ jobs:
         shell: bash
         working-directory: ./build
         run: cmake --build . --config $BUILD_TYPE
-
-      - name: Install dependecy
-        shell: bash
-        run: sudo apt -y install valgrind
 
       - name: Execute Valgrind
         shell: bash
