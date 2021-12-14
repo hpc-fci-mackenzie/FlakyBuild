@@ -36,4 +36,4 @@ jobs:
       - name: Execute Valgrind
         shell: bash
         working-directory: ./data
-        run: valgrind --quiet --leak-check=full ../build/nsa dataset.conf
+        run: valgrind --error-exitcode=99 --leak-check=full ../build/nsa dataset.conf
