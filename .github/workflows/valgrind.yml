@@ -21,12 +21,12 @@ jobs:
 
       - name: Configure CMake
         shell: bash
-        working-directory: $GITHUB_WORKSPACE/build
+        working-directory: ${{runner.workspace}}/FlakyBuild/build
         run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
       - name: Build
         shell: bash
-        working-directory: $GITHUB_WORKSPACE/build
+        working-directory: ${{runner.workspace}}/FlakyBuild/build
         run: cmake --build . --config $BUILD_TYPE
 
       - name: Install dependecy
@@ -35,5 +35,5 @@ jobs:
 
       - name: Execute Valgrind
         shell: bash
-        working-directory: $GITHUB_WORKSPACE/data
+        working-directory: ${{runner.workspace}}/FlakyBuild/data
         run: valgrind --quiet --leak-check=full ../build/nsa dataset.conf
