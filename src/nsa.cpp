@@ -54,7 +54,7 @@ void run(ConfigFile &configFile)
     std::cout << "Average: " << sumDR / configFile.getAmountOfProofs() << ", " << sumFAR / configFile.getAmountOfProofs() << std::endl;
 }
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[])
 {
     if (argc == 2)
     {

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <set>
 #include "csv.hpp"
+#include "Datatype.hpp"
 
 ConfigFile::ConfigFile(std::string &name)
 {
@@ -21,7 +22,7 @@ void ConfigFile::read()
     reader.read_row(row);
     fProblemSize = row[0].get<int>();
     fMaxDetectors = row[1].get<int>();
-    fMinDist = row[2].get<int>();
+    fMinDist = row[2].get<datatype>();
     fAmountOfProofs = row[3].get<int>();
     fTrainingDatasetCsvFile = row[4].get();
     fTestingDatasetCsvFile = row[5].get();
