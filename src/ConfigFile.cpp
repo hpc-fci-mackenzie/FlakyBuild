@@ -65,21 +65,6 @@ std::vector<int> ConfigFile::getExpectedDetected() const
     return fExpectedDetected;
 }
 
-void ConfigFile::setSearchSpace()
-{
-    fSearchSpace = new datatype[fProblemSize * 2];
-}
-
-datatype ConfigFile::getSearchSpaceIndex(int index) const
-{
-    return fSearchSpace[index];
-}
-
-void ConfigFile::setSearchSpaceIndex(datatype value, int index)
-{
-    fSearchSpace[index] = value;
-}
-
 int ConfigFile::getProblemSize() const
 {
     return fProblemSize;

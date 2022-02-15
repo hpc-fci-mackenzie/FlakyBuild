@@ -15,11 +15,12 @@ private:
     std::string fTrainingDatasetCsvFile;
     std::string fTestingDatasetCsvFile;
     std::vector<int> fExpectedDetected;
-    datatype *fSearchSpace;
 
 public:
     ConfigFile(std::string &);
+
     ConfigFile() = default;
+
     void read();
 
     std::string getConfigFile() const;
@@ -37,10 +38,6 @@ public:
     std::string getTestingDatasetCsvFile() const;
 
     std::vector<int> getExpectedDetected() const;
-
-    void setSearchSpace();
-    datatype getSearchSpaceIndex(int) const;
-    void setSearchSpaceIndex(datatype, int);
 };
 
 #endif
